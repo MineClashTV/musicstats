@@ -1,34 +1,20 @@
 package de.mineclashtv;
 
-import de.mineclashtv.data.Data;
-import de.mineclashtv.metadata.MetaTag;
-import de.mineclashtv.metadata.Metadata;
+import de.mineclashtv.cli.Interface;
 
-import java.io.File;
-import java.util.List;
-import java.util.Map;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static de.mineclashtv.metadata.MetadataUtilities.*;
-import static de.mineclashtv.utils.FileUtilities.*;
-
 public class Main {
+
+	public static String version = "1.0.0";
 
 	public static void main(String[] args) throws Exception {
 		setJAudioTaggerLoggingLevel(Level.OFF);
 
-		List<File> music = getMusicFiles(Data.path);
-		System.out.println(music.size() + " tracks found");
-
-		List<Metadata> metadata = getAllMetadata(music);
-		Map<String, Integer> frequency = getFrequencyOf(metadata, MetaTag.ARTIST);
-
-		frequency   .entrySet()
-					.stream()
-					.sorted(Map.Entry.comparingByValue())
-					.forEach(artist -> System.out.println(artist.getValue() + "x " + artist.getKey()));
+		Interface cli = new Interface();
+		cli.start();
 	}
 
 	/**

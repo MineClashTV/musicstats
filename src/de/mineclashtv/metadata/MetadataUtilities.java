@@ -25,16 +25,16 @@ public class MetadataUtilities {
 		Tag tag = audioFile.getTag();
 		AudioHeader header = audioFile.getAudioHeader();
 
-		String title = tag.getFirst(FieldKey.TITLE);
-		String artist = tag.getFirst(FieldKey.ARTIST);
-		String album = tag.getFirst(FieldKey.ALBUM);
-		String date = tag.getFirst(FieldKey.YEAR);
-		String track = tag.getFirst(FieldKey.TRACK);
-		String bitRate = header.getBitRate();
-		String sampleRate = header.getSampleRate();
-		String bitsPerSample = String.valueOf(header.getBitsPerSample());
+		String title         = tag.getFirst(FieldKey.TITLE);
+		String artist        = tag.getFirst(FieldKey.ARTIST);
+		String album         = tag.getFirst(FieldKey.ALBUM);
+		String year          = tag.getFirst(FieldKey.YEAR);
+		String track         = tag.getFirst(FieldKey.TRACK);
+		String bitRate       = header.getBitRate() + "kbps";
+		String sampleRate    = header.getSampleRate() + "kHz";
+		String bitsPerSample = header.getBitsPerSample() + " bit";
 
-		return new Metadata(title, artist, album, date, track, bitRate, sampleRate, bitsPerSample);
+		return new Metadata(title, artist, album, year, track, bitRate, sampleRate, bitsPerSample);
 	}
 
 	public static List<Metadata> getAllMetadata(List<File> files)
@@ -52,18 +52,33 @@ public class MetadataUtilities {
 
 		dataList.forEach(d -> {
 			switch(tag) {
-				case TITLE -> incrementValueInMap(a, d.getTitle());
-				case ARTIST -> incrementValueInMap(a, d.getArtist());
-				case ALBUM -> incrementValueInMap(a, d.getAlbum());
-				case DATE -> incrementValueInMap(a, d.getDate());
-				case TRACK -> incrementValueInMap(a, d.getTrack());
-				case BITRATE -> incrementValueInMap(a, d.getBitRate());
-				case SAMPLE_RATE -> incrementValueInMap(a, d.getSampleRate());
+				case TITLE           -> incrementValueInMap(a, d.getTitle());
+				case ARTIST          -> incrementValueInMap(a, d.getArtist());
+				case ALBUM           -> incrementValueInMap(a, d.getAlbum());
+				case YEAR            -> incrementValueInMap(a, d.getYear());
+				case TRACK           -> incrementValueInMap(a, d.getTrack());
+				case BITRATE         -> incrementValueInMap(a, d.getBitRate());
+				case SAMPLE_RATE     -> incrementValueInMap(a, d.getSampleRate());
 				case BITS_PER_SAMPLE -> incrementValueInMap(a, d.getBitsPerSample());
 			}
 		});
 
 		return a;
+	}
+
+	public static void printFrequency(List<File> music, List<Metadata> metadata, MetaTag tag) {
+		getFrequencyOf(metadata, tag)
+				.entrySet()
+				.stream()
+				.sorted(Map.Entry.comparingByValue())
+				.forEach(a ->
+					System.out.printf("%dx %s (%.2f%% of total %ss)\n",
+						a.getValue(),
+						a.getKey(),
+						(float)a.getValue() / music.size() * 100,
+						tag.toString().replace("_", " ").toLowerCase()
+					)
+				);
 	}
 
 	/**

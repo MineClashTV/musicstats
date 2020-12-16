@@ -4,7 +4,7 @@ public enum MetaTag {
 	TITLE,
 	ARTIST,
 	ALBUM,
-	DATE,
+	YEAR,
 	TRACK,
 	BITRATE,
 	SAMPLE_RATE,

@@ -2,12 +2,12 @@ package de.mineclashtv.metadata;
 
 public class Metadata {
 
-	private final String title, artist, album, date, track, bitRate, sampleRate, bitsPerSample;
+	private final String title, artist, album, year, track, bitRate, sampleRate, bitsPerSample;
 
 	public Metadata(String title,
 	                String artist,
 	                String album,
-	                String date,
+	                String year,
 	                String track,
 	                String bitRate,
 	                String sampleRate,
@@ -15,7 +15,7 @@ public class Metadata {
 		this.title = title;
 		this.artist = artist;
 		this.album = album;
-		this.date = date;
+		this.year = year;
 		this.track = track;
 		this.bitRate = bitRate;
 		this.sampleRate = sampleRate;
@@ -34,8 +34,8 @@ public class Metadata {
 		return album;
 	}
 
-	public String getDate() {
-		return date;
+	public String getYear() {
+		return year;
 	}
 
 	public String getTrack() {
@@ -60,7 +60,7 @@ public class Metadata {
 				"title='" + title + '\'' +
 				", artist='" + artist + '\'' +
 				", album='" + album + '\'' +
-				", date='" + date + '\'' +
+				", year='" + year + '\'' +
 				", track='" + track + '\'' +
 				", bitRate='" + bitRate + '\'' +
 				", sampleRate='" + sampleRate + '\'' +
