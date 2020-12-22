@@ -24,17 +24,19 @@ public class MetadataUtilities {
 		AudioFile audioFile = AudioFileIO.read(file);
 		Tag tag = audioFile.getTag();
 		AudioHeader header = audioFile.getAudioHeader();
+		String fileName = file.getName();
 
 		String title         = tag.getFirst(FieldKey.TITLE);
 		String artist        = tag.getFirst(FieldKey.ARTIST);
 		String album         = tag.getFirst(FieldKey.ALBUM);
 		String year          = tag.getFirst(FieldKey.YEAR);
 		String track         = tag.getFirst(FieldKey.TRACK);
-		String bitRate       = header.getBitRate() + "kbps";
-		String sampleRate    = header.getSampleRate() + "kHz";
+		String bitRate       = header.getBitRate() + " kbps";
+		String sampleRate    = header.getSampleRate() + " Hz";
 		String bitsPerSample = header.getBitsPerSample() + " bit";
+		String format        = fileName.substring(fileName.lastIndexOf(".") + 1);
 
-		return new Metadata(title, artist, album, year, track, bitRate, sampleRate, bitsPerSample);
+		return new Metadata(title, artist, album, year, track, bitRate, sampleRate, bitsPerSample, format);
 	}
 
 	public static List<Metadata> getAllMetadata(List<File> files)
@@ -60,6 +62,7 @@ public class MetadataUtilities {
 				case BITRATE         -> incrementValueInMap(a, d.getBitRate());
 				case SAMPLE_RATE     -> incrementValueInMap(a, d.getSampleRate());
 				case BITS_PER_SAMPLE -> incrementValueInMap(a, d.getBitsPerSample());
+				case FORMAT 	     -> incrementValueInMap(a, d.getFormat());
 			}
 		});
 

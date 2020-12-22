@@ -8,5 +8,6 @@ public enum MetaTag {
 	TRACK,
 	BITRATE,
 	SAMPLE_RATE,
-	BITS_PER_SAMPLE
+	BITS_PER_SAMPLE,
+	FORMAT
 }

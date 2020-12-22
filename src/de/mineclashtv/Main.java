@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class Main {
 
-	public static String version = "1.0.0";
+	public static String version = "1.1.0";
 
 	public static void main(String[] args) throws Exception {
 		setJAudioTaggerLoggingLevel(Level.OFF);
